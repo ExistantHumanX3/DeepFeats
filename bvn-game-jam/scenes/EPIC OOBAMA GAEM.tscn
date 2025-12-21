@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://byqel2kou3uwj"]
+
+[ext_resource type="PackedScene" uid="uid://b1oa7cnomere2" path="res://scenes/OBAMA.tscn" id="1_aoivr"]
+
+[node name="ObamaScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Obama" parent="." instance=ExtResource("1_aoivr")]
+position = Vector2(0, 4)

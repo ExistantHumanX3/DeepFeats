@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1oa7cnomere2"]
+[gd_scene load_steps=4 format=3 uid="uid://b1oa7cnomere2"]
 
 [ext_resource type="SpriteFrames" uid="uid://cbqblw7q5d50h" path="res://assets/OBAMA/OBAMA.tres" id="1_p1qt3"]
+[ext_resource type="Script" uid="uid://k2777a7m4c0i" path="res://scenes/obama.gd" id="1_wmy8s"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_riwbi"]
+radius = 95.02105
+
+[node name="Obama" type="CharacterBody2D"]
+script = ExtResource("1_wmy8s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1_p1qt3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_riwbi")
