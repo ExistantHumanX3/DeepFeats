@@ -14,3 +14,8 @@ texture = ExtResource("2_4ps28")
 
 [node name="BulletFrom" type="Marker2D" parent="Gun"]
 position = Vector2(10, 0)
+
+[node name="Cooldown" type="Timer" parent="Gun"]
+wait_time = 0.3
+
+[connection signal="timeout" from="Gun/Cooldown" to="." method="_on_cooldown_end"]
