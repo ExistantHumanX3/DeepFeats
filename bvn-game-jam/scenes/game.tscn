@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvpe0pf7gtj70"]
+
+[ext_resource type="PackedScene" uid="uid://clqrvj5kepdfw" path="res://prefabs/player.tscn" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://by273wp31kcri" path="res://assets/tiles/tileset.png" id="2_yqjtg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
+texture = ExtResource("2_yqjtg")
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:4/0 = 0
+2:4/0 = 0
+0:0/0 = 0
+3:1/size_in_atlas = Vector2i(4, 2)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.26978874, -0.17985725, 0.449646, -3.7770329, 3.6871033, -6.2950544, 5.8454075, 1.0791531, 11.421028, 0.35971832, 15.018202, -1.0791512, 17.716085, 0.71943474, 15.198061, 3.7770348, 17.716085, 8.093643, 15.37792, 12.230394, -8.125086, 11.470707, -19.277163, 13.063862, -26.924301, 7.0098763, -26.924301, -8.603029, -17.536226, -8.2735, -10.8814535, -3.5971737, -5.1259747, 0.35971832)
+
+[sub_resource type="TileSet" id="TileSet_lnu2h"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_yqjtg")
+
+[node name="Game" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_lnu2h")
+format = 2
+layer_0/tile_data = PackedInt32Array(131070, 1, 4, 131071, 1, 4, 65536, 1, 4, 65537, 1, 4, 65538, 1, 4, -196605, 1, 4, -131069, 1, 4, -65533, 1, 4, 3, 1, 4, -262151, 1, 4, -196615, 1, 4, -131079, 1, 4)
+
+[node name="Bullets" type="Node" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+collision_layer = 3
+collision_mask = 1
+
+[node name="Camera" type="Camera2D" parent="Player"]
+zoom = Vector2(4, 4)
+limit_left = -1500
+limit_top = -1500
+limit_right = 1500
+limit_bottom = 1500
+limit_smoothed = true

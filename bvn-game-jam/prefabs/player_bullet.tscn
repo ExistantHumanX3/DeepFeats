@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://2x07em04hodb"]
+
+[ext_resource type="Script" uid="uid://cq8a6673f4u3y" path="res://scripts/player_bullet.gd" id="1_8y3uu"]
+[ext_resource type="Texture2D" uid="uid://by0ngs114bkud" path="res://assets/bullets/basic.png" id="2_5hife"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xpxv"]
+radius = 2.0
+height = 10.0
+
+[node name="PlayerBullet" type="Area2D"]
+script = ExtResource("1_8y3uu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("2_5hife")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_7xpxv")
+
+[node name="RayCast" type="RayCast2D" parent="."]
+target_position = Vector2(-16, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="child_entered_tree" from="RayCast" to="." method="_on_ray_cast_child_entered_tree"]
+[connection signal="tree_entered" from="RayCast" to="." method="_on_ray_cast_tree_entered"]

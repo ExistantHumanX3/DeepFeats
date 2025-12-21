@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://djgmi6cjxehwt"]
+
+[ext_resource type="Script" uid="uid://c5npy4e75b0n2" path="res://scripts/gun_pivot.gd" id="1_vg2ei"]
+[ext_resource type="Texture2D" uid="uid://dnrt430slddh" path="res://assets/weapons/gun.png" id="2_4ps28"]
+
+[node name="GunPivot" type="Node2D"]
+script = ExtResource("1_vg2ei")
+
+[node name="Gun" type="Node2D" parent="."]
+position = Vector2(15, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Gun"]
+texture = ExtResource("2_4ps28")
+
+[node name="BulletFrom" type="Marker2D" parent="Gun"]
+position = Vector2(10, 0)
