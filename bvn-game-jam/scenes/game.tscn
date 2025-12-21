@@ -56,7 +56,7 @@ script = ExtResource("3_lbhrr")
 
 [node name="ShakeShader" type="ColorRect" parent="Player/Camera/Shaders"]
 material = SubResource("ShaderMaterial_lbhrr")
-offset_left = -21.0
-offset_top = -352.0
-offset_right = 3854.0
-offset_bottom = 2337.0
+offset_left = -3.0
+offset_top = -1010.0
+offset_right = 3233.0
+offset_bottom = 2469.0
