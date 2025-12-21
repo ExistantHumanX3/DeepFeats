@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [global_group]
 
 player=""
+walls="a check for walls"
 
 [input]
 

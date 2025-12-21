@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xpxv"]
 radius = 2.0
-height = 10.0
+height = 18.0
 
 [node name="PlayerBullet" type="Area2D"]
 script = ExtResource("1_8y3uu")
@@ -15,10 +15,12 @@ position = Vector2(0, -1)
 texture = ExtResource("2_5hife")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_7xpxv")
 
 [node name="RayCast" type="RayCast2D" parent="."]
+position = Vector2(-2, 0)
 target_position = Vector2(-16, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -18,9 +18,9 @@ texture = ExtResource("2_yqjtg")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_yqjtg")
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" groups=["walls"]]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["walls"]]
 tile_set = SubResource("TileSet_lnu2h")
 format = 2
 layer_0/tile_data = PackedInt32Array(131070, 1, 4, 131071, 1, 4, 65536, 1, 4, 65537, 1, 4, 65538, 1, 4, -196605, 1, 4, -131069, 1, 4, -65533, 1, 4, 3, 1, 4, -262151, 1, 4, -196615, 1, 4, -131079, 1, 4)
