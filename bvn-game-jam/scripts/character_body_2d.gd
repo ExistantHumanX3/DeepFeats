@@ -14,7 +14,7 @@ var can_dash: bool = true;
 
 
 const SPEED = 200
-const DASH_MULTIPLIER = 10
+const DASH_MULTIPLIER = 6
 const dash_timer = 5
 
 func _physics_process(delta) -> void:
@@ -30,7 +30,7 @@ func getInput():
 	if Input.is_action_just_pressed("dash") && !is_dashing && can_dash:
 		is_dashing = true
 	
-	if is_dashing:
+	if is_dashing && move_vector != Vector2(0,0):
 		if anim_timer == 0:
 			shaders.start_shake(0.5)
 		play_anim("dash")

@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bewdumlh05ikw"]
+
+[ext_resource type="Texture2D" uid="uid://dtgf881velf48" path="res://assets/ui/ui-spritesheet.png" id="1_dcmab"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenu" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Overlay" type="ColorRect" parent="PauseMenu"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.1254902)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="PauseMenu/HBoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_dcmab")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
