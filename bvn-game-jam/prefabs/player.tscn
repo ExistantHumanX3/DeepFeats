@@ -1,8 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://clqrvj5kepdfw"]
+[gd_scene load_steps=10 format=3 uid="uid://clqrvj5kepdfw"]
 
 [ext_resource type="Script" uid="uid://difpfugnmh7a8" path="res://scripts/character_body_2d.gd" id="1_4dohe"]
 [ext_resource type="Texture2D" uid="uid://d12sq74p38o8b" path="res://assets/entities/player.png" id="2_4dohe"]
 [ext_resource type="PackedScene" uid="uid://djgmi6cjxehwt" path="res://prefabs/gun_pivot.tscn" id="3_r66lb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1txc5"]
+atlas = ExtResource("2_4dohe")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht1c8"]
+atlas = ExtResource("2_4dohe")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2jcq"]
+atlas = ExtResource("2_4dohe")
+region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r66lb"]
 atlas = ExtResource("2_4dohe")
@@ -10,6 +22,20 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1txc5"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1txc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht1c8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2jcq")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 10.0
+}, {
 "frames": [],
 "loop": true,
 "name": &"default",
@@ -36,9 +62,16 @@ script = ExtResource("1_4dohe")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_1txc5")
-animation = &"idle"
+animation = &"dash"
+frame = 1
+frame_progress = 0.9922119
 
 [node name="WallCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_4dohe")
 
 [node name="GunPivot" parent="." instance=ExtResource("3_r66lb")]
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.56
+
+[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]

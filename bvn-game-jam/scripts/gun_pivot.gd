@@ -7,10 +7,16 @@ extends Node2D
 var canShoot = true;
 
 @export var Bullet : PackedScene = preload("res://prefabs/player_bullet.tscn")
+@onready var game: Node2D = $"../../GameController"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	look_at(get_global_mouse_position())
+	if game.useMouse:
+		look_at(get_global_mouse_position())
+	else:
+		var input_dir = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+		var look_dir = input_dir + global_position
+		look_at(look_dir)
 	if Input.is_action_just_pressed("shoot") && canShoot:
 		shoot()
 		canShoot = false
