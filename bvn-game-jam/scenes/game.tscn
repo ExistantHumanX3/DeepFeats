@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cvpe0pf7gtj70"]
 
-[ext_resource type="Script" uid="uid://bw5glfi4qgahc" path="res://scenes/game_controller.gd" id="1_iywne"]
+[ext_resource type="Script" uid="uid://bw5glfi4qgahc" path="res://scripts/game_controller.gd" id="1_iywne"]
 [ext_resource type="PackedScene" uid="uid://clqrvj5kepdfw" path="res://prefabs/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://by273wp31kcri" path="res://assets/tiles/tileset.png" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dav5flk6jdvsj" path="res://scripts/shaders.gd" id="3_lbhrr"]
