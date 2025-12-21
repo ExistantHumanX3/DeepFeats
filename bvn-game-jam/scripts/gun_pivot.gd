@@ -1,10 +1,8 @@
 extends Node2D
 
 @onready var sprite: Sprite2D = $Gun/Sprite2D
+@onready var shaders: CanvasLayer = $"../Camera/Shaders"
 
-const rotate_limit = 90.0
-# Have bullet reference here
-const PLAYER_BULLET = preload("uid://2x07em04hodb")
 
 @export var Bullet : PackedScene = preload("res://prefabs/player_bullet.tscn")
 
@@ -18,5 +16,9 @@ func _process(delta: float) -> void:
 func shoot():
 	var b = Bullet.instantiate()
 	get_tree().root.add_child(b)
-	b.position = $Gun/BulletFrom.global_position
-	b.rotation = $Gun/BulletFrom.global_rotation
+	b.transform = $Gun/BulletFrom.global_transform
+	
+	get_parent().knockback($Gun/BulletFrom.global_position - get_parent().global_position)
+	
+	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
+	shake_layer.start_shake(0.2)

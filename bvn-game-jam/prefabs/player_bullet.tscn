@@ -19,10 +19,4 @@ position = Vector2(-5, 0)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_7xpxv")
 
-[node name="RayCast" type="RayCast2D" parent="."]
-position = Vector2(-2, 0)
-target_position = Vector2(-16, 0)
-
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="child_entered_tree" from="RayCast" to="." method="_on_ray_cast_child_entered_tree"]
-[connection signal="tree_entered" from="RayCast" to="." method="_on_ray_cast_tree_entered"]
