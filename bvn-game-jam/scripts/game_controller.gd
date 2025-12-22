@@ -1,3 +1,3 @@
 extends Node2D
 
-const useMouse = true
+const useMouse = false

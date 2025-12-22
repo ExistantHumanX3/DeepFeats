@@ -60,7 +60,6 @@ func getInput():
 		
 	# Apply knockback
 	move_vector -= kb_vector
-	print(kb_vector * SPEED)
 	
 	# Fixes the knockback
 	# issue was the velocity was set before the knockback was applied

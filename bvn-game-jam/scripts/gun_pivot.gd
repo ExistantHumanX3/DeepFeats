@@ -3,6 +3,7 @@ extends Node2D
 @onready var sprite: Sprite2D = $Gun/Sprite2D
 @onready var shaders: CanvasLayer = $"../Camera/Shaders"
 @onready var cooldown: Timer = $Gun/Cooldown
+@onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 
 var canShoot = true;
 
@@ -29,6 +30,8 @@ func shoot():
 	b.transform = $Gun/BulletFrom.global_transform
 	
 	get_parent().knockback($Gun/BulletFrom.global_position - get_parent().global_position)
+	
+	shoot_sound.play()
 	
 	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
 	shake_layer.start_shake(0.2)

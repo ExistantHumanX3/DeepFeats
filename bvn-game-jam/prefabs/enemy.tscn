@@ -1,3 +1,29 @@
-[gd_scene load_steps=0 format=3 uid="uid://bx41pkkd7eqcp"]
+[gd_scene load_steps=5 format=3 uid="uid://bx41pkkd7eqcp"]
+
+[ext_resource type="Script" uid="uid://bupvra5xo3u0p" path="res://scripts/enemy.gd" id="1_yfjof"]
+[ext_resource type="SpriteFrames" uid="uid://cbqblw7q5d50h" path="res://assets/OBAMA/OBAMA.tres" id="2_cypye"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7d0n"]
+size = Vector2(28, 22)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aivmq"]
+radius = 36.013885
 
 [node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_yfjof")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.11055278, 0.11055276)
+sprite_frames = ExtResource("2_cypye")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a7d0n")
+
+[node name="ShootCooldown" type="Timer" parent="."]
+
+[node name="PlayerToClose" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerToClose"]
+shape = SubResource("CircleShape2D_aivmq")
+
+[connection signal="timeout" from="ShootCooldown" to="." method="_on_shoot_cooldown_end"]
