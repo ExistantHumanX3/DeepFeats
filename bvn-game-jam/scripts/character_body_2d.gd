@@ -24,9 +24,11 @@ func _physics_process(delta) -> void:
 
 # Gets input direction as a vector so it works with controllers
 func getInput():
+	# Sets movement direction
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	move_vector = input_vector - kb_vector
-	
+	# Update move_vector
+	move_vector = input_vector 
+	# Check if player dashes
 	if Input.is_action_just_pressed("dash") && !is_dashing && can_dash:
 		is_dashing = true
 	
@@ -35,17 +37,22 @@ func getInput():
 			shaders.start_shake(0.1)
 		play_anim("dash")
 		anim_timer += 1
-		var dash_vector = DASH_SPEED * move_vector + Vector2(1, 1)
+		var dash_vector = DASH_SPEED * move_vector
 		move_vector += dash_vector
 		can_dash = false
 		if anim_timer >= dash_timer:
 			anim_timer = 0
-			move_vector -= Vector2(1, 1) * DASH_SPEED
 			play_anim("idle")
 			is_dashing = false
 			$DashCooldown.start()
 	else :
 		play_anim("idle")
+	
+	# Apply knockback
+	move_vector -= kb_vector
+	
+	
+	
 	
 	if kb_vector.length() > 0:
 		kb_vector = lerp(kb_vector, Vector2(0, 0), 0.05)
