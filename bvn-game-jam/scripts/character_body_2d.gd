@@ -14,7 +14,7 @@ var can_dash: bool = true;
 
 
 const SPEED = 200
-const DASH_SPEED = 4
+const DASH_SPEED = 4.0
 const dash_timer = 5
 
 func _physics_process(delta) -> void:
@@ -50,16 +50,21 @@ func getInput():
 	else :
 		play_anim("idle")
 		
-	# Sets your velocity so you get to move
-	velocity = move_vector * SPEED
 	
+	# Check if knockback is existing
+	if kb_vector.length() > 0:
+		# Each frame the knockback exists, subtract it's speed by an increasing amount each time
+		# starting at 0.05 and increases by the power of the lerp... idk what that is, but it works
+		kb_vector = lerp(kb_vector, Vector2(0, 0), 0.05)
+		
+		
 	# Apply knockback
 	move_vector -= kb_vector
+	print(kb_vector * SPEED)
 	
-	# What does this one do? TODO: explain what this one does
-	if kb_vector.length() > 0:
-		kb_vector = lerp(kb_vector, Vector2(0, 0), 0.05)
-	
+	# Fixes the knockback
+	# issue was the velocity was set before the knockback was applied
+	velocity = move_vector * SPEED
 	
 
 
