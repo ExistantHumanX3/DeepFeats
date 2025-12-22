@@ -14,7 +14,7 @@ var can_dash: bool = true;
 
 
 const SPEED = 200
-const DASH_SPEED = 6
+const DASH_SPEED = 4
 const dash_timer = 5
 
 func _physics_process(delta) -> void:
@@ -26,8 +26,10 @@ func _physics_process(delta) -> void:
 func getInput():
 	# Sets movement direction
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	
 	# Update move_vector
-	move_vector = input_vector 
+	move_vector = input_vector
+	
 	# Check if player dashes
 	if Input.is_action_just_pressed("dash") && !is_dashing && can_dash:
 		is_dashing = true
@@ -47,17 +49,18 @@ func getInput():
 			$DashCooldown.start()
 	else :
 		play_anim("idle")
+		
+	# Sets your velocity so you get to move
+	velocity = move_vector * SPEED
 	
 	# Apply knockback
 	move_vector -= kb_vector
 	
-	
-	
-	
+	# What does this one do? TODO: explain what this one does
 	if kb_vector.length() > 0:
 		kb_vector = lerp(kb_vector, Vector2(0, 0), 0.05)
 	
-	velocity = move_vector * SPEED
+	
 
 
 func knockback(kb_vector: Vector2):
