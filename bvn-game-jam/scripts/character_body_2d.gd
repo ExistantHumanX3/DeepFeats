@@ -58,12 +58,12 @@ func getInput():
 		kb_vector = lerp(kb_vector, Vector2(0, 0), 0.05)
 		
 		
+	# Apply speed separately from knockback
+	move_vector *= SPEED
 	# Apply knockback
 	move_vector -= kb_vector
 	
-	# Fixes the knockback
-	# issue was the velocity was set before the knockback was applied
-	velocity = move_vector * SPEED
+	velocity = move_vector
 	
 
 

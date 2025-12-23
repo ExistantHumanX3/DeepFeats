@@ -6,6 +6,7 @@ extends Node2D
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
 
 var canShoot = true;
+const recoilStrength = 100
 
 @export var Bullet : PackedScene = preload("res://prefabs/player_bullet.tscn")
 @onready var game: Node2D = $"../../GameController"
@@ -29,7 +30,7 @@ func shoot():
 	get_tree().root.add_child(b)
 	b.transform = $Gun/BulletFrom.global_transform
 	
-	get_parent().knockback($Gun/BulletFrom.global_position - get_parent().global_position)
+	get_parent().knockback(recoilStrength*($Gun/BulletFrom.global_position - get_parent().global_position))
 	
 	shoot_sound.play()
 	
