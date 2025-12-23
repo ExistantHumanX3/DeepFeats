@@ -4,6 +4,7 @@ extends Node2D
 @onready var shaders: CanvasLayer = $"../Camera/Shaders"
 @onready var cooldown: Timer = $Gun/Cooldown
 @onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
+@onready var particles: GPUParticles2D = $Gun/BulletFrom/Particles
 
 var canShoot = true;
 const recoilStrength = 100
@@ -11,9 +12,11 @@ const recoilStrength = 100
 @export var Bullet : PackedScene = preload("res://prefabs/player_bullet.tscn")
 @onready var game: Node2D = $"../../GameController"
 
+func _ready():
+	particles.emitting = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	assert(game.useMouse, "for some reason game.useMouse is false???")
 	if game.useMouse:
 		look_at(get_global_mouse_position()) # TODO: this broke for some reason please fix it
 	else:
@@ -38,7 +41,8 @@ func shoot():
 	
 	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
 	shake_layer.start_shake(0.2)
-
+	
+	particles.restart()
 
 
 func _on_cooldown_end() -> void:
