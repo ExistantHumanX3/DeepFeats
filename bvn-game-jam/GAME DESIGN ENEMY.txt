@@ -1,0 +1,41 @@
+Ok so we sadly don't have enough time to add a buncha cool weapons, but we can still do the chocolate thing:
+	
+	Candy corn: Used to buy upgrades and heals. Heals can only be purchased in-shop
+	Why candy corn? "Everyone hates candy corn. People who like it belong in hell"
+	
+	Enemy Progression:
+	Enemies will have a certain number of "skill points" they will randomly spend when they spawn.
+	These skill points increase their stats and add variety to each enemy
+	Enemies will tend to spend more of their points into 1 aspect than others
+	Caps out at around 8 or so
+	
+	Red: Regular chocolate bars used by normal enemies. Fire standard bullets
+	RED enemy behavior:
+		- Generally try to keep distance from player, fires slower if too close
+		- Will try to approach player
+	RED enemies gain these stats over time:
+		- Movement speed 
+		- Firerate
+		- Bullet speed & accuracy (same stat)
+		- Health
+		
+	Green: Toodles rolls used to empower melee weapons. Used by melee rushing enemies
+	GREEN enemy behavior:
+		- High health
+		- High movement speed, however the player will always be able to outrun them
+		- Will try to swing at player when close. Slow down when swinging
+		- Deal knockback so that you don't get swarmed (unless you get cornered)
+	GREEN enemies gain these stats over time:
+		- Movement speed (capped to player movement speed)
+		- Weapon range
+		- Swing speed
+		- Health
+	
+	Blue: Rerrero Focher. Used by wizardmaxxing enemies >:3
+	BLUE enemy behavior:
+		- Will occasionally cast spells
+		- Stay as far from player as possible
+		- "Cost" more than other enemies to spawn (contributes as 3 or so to enemy limit)
+	BLUE enemies gain these stats over time:
+		- Random spell modifiers
+		- Firerate
