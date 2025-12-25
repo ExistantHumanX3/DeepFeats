@@ -19,11 +19,11 @@ const dash_timer = 5
 
 func _physics_process(delta) -> void:
 	sprites.play("idle")
-	getInput()
+	movementInput()
 	move_and_slide()
 
 # Gets input direction as a vector so it works with controllers
-func getInput():
+func movementInput():
 	# Sets movement direction
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	

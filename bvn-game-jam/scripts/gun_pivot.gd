@@ -10,8 +10,20 @@ extends Node2D
 # Player Inventory
 var ammo = [69420, 10, 2] # 0: starbreaker; 1: toodles roll; 2: rerro focher
 var currentWeapon = 0 # 0: gun; 1: baseball bat; 2: staff
+
 var canShoot = true;
-const recoilStrength = 100
+var gunRecoil = 100 # Why var? An upgrade will allow the bat to dash further 
+var batRecoil = -300
+var staffRecoil = 0
+var recoilList: Array = [gunRecoil, batRecoil, staffRecoil]
+var currentRecoil = 100
+# textures
+const TEXTURE_GUN: Texture = preload("res://assets/weapons/gun2.png")
+const TEXTURE_BAT: Texture = preload("res://assets/weapons/baseball stick.png")
+const TEXTURE_STAFF: Texture = preload("res://assets/weapons/staph.png")
+const textureList: Array  = [TEXTURE_GUN, TEXTURE_BAT, TEXTURE_STAFF]
+const offsetList: Array = [[8,-2],[8,0],[8,0]]# TODO: figure out how to turn off rotation for the staff
+
 
 @export var Bullet : PackedScene = preload("res://prefabs/player_bullet.tscn")
 @onready var game: Node2D = $"../../GameController"
@@ -28,9 +40,12 @@ func _process(delta: float) -> void:
 		var input_dir = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 		var look_dir = input_dir + global_position
 		look_at(look_dir)
-	
+	weaponSwapInput()
 	fireCheck()
 
+func weaponSwapInput():
+	if Input.is_action_just_pressed("weapon_1"):
+		swapWeapon(0)
 func fireCheck():
 	if !canShoot:
 		return
@@ -42,7 +57,7 @@ func fireCheck():
 			if ammo[currentWeapon] > 0:
 				shoot()
 			else:
-				shoot() ## but weaker!! TODO: make the actual bat and weak firing
+				shoot()
 			return
 		# Other weapon behavior
 		if ammo[currentWeapon] > 0:
@@ -60,7 +75,7 @@ func shoot():
 	get_tree().root.add_child(b)
 	b.transform = $Gun/BulletFrom.global_transform
 	
-	get_parent().knockback(recoilStrength*($Gun/BulletFrom.global_position - get_parent().global_position))
+	get_parent().knockback(gunRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
 	
 	shoot_sound.play()
 	
@@ -72,3 +87,12 @@ func shoot():
 
 func _on_cooldown_end() -> void:
 	canShoot = true;
+
+func changeSprite(index:int):
+	$Gun/Sprite2D.texture = textureList[index]
+
+func swapWeapon(index:int):
+	changeSprite(index)
+	currentWeapon = index
+	currentRecoil = recoilList[index]
+	# $Player/GunPivot.transform = Vector2(offsetList[index][0],offsetList[index][1]) TODO: figure out how to do change the offset
