@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+# Movement variables
 var kb_vector: Vector2
 var move_vector: Vector2
 var anim_timer: int = 0
