@@ -79,6 +79,7 @@ func shoot():
 	var b = Bullet.instantiate()
 	get_tree().root.add_child(b)
 	b.transform = $Gun/BulletFrom.global_transform
+	b.initialize(currentWeapon,1)
 	
 	get_parent().knockback(gunRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
 	
