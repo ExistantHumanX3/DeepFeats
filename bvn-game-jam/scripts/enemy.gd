@@ -1,13 +1,28 @@
 extends CharacterBody2D
 
-@onready var cooldown: Timer = $ShootCooldown
-@onready var player: CharacterBody2D = $Player
+enum AIState {
+	IDLE,
+	CHASE,
+	FLEE
+}
 
-@export var is_to_close: bool = false
-@export var player_pos = player.global_position
+var state: AIState = AIState.IDLE
 
-const SPEED = 400
+func get_state() -> AIState:
+	return state
 
+func get_states() -> Dictionary:
+	return AIState
+
+@onready var player: CharacterBody2D = $"../Player"
+
+@export var SPEED: float = 30
+@export var CHACE_DIST: float = 400
+@export var FLEE_DIST: float = 75
+@export var CHACE_EXIT: float = 325
+@export var FLEE_EXIT: float = 100
+
+var dir2Player
 # TODO
 # 
 # make ai:
@@ -17,17 +32,32 @@ const SPEED = 400
 # 
 
 func _physics_process(delta: float) -> void:
-	# turn gun to face player at all times
-	look_at(player_pos)
-	pass
-
-func move_to_player():
-	velocity = player_pos / SPEED
-func move_away():
-	pass
-func shoot():
-	cooldown.start()
-
-func _on_shoot_cooldown_end() -> void:
-	# Shoot bullet
-	pass 
+	if player == null:
+		return
+	var dir2p = player.global_position - global_position
+	self.dir2Player = dir2p
+	var dis2p = dir2p.length()
+	
+	match state:
+		AIState.IDLE:
+			velocity = Vector2.ZERO
+			
+			if dis2p <= CHACE_DIST:
+				state = AIState.CHASE
+			
+		AIState.CHASE:
+			
+			velocity = dir2p.normalized() * SPEED
+			
+			if dis2p <= FLEE_DIST:
+				state = AIState.FLEE
+			elif dis2p > CHACE_EXIT:
+				state = AIState.IDLE
+		
+		AIState.FLEE:
+			velocity = -dir2p.normalized() * SPEED
+			
+			if dis2p > FLEE_EXIT:
+				state = AIState.CHASE
+	
+	move_and_slide()

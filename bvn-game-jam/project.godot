@@ -15,6 +15,10 @@ run/main_scene="uid://cvpe0pf7gtj70"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
+[autoload]
+
+enemy="*res://scripts/enemy.gd"
+
 [global_group]
 
 player=""

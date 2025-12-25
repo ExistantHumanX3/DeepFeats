@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvpe0pf7gtj70"]
+[gd_scene load_steps=10 format=3 uid="uid://cvpe0pf7gtj70"]
 
 [ext_resource type="Script" uid="uid://bw5glfi4qgahc" path="res://scripts/game_controller.gd" id="1_iywne"]
 [ext_resource type="PackedScene" uid="uid://clqrvj5kepdfw" path="res://prefabs/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://by273wp31kcri" path="res://assets/tiles/tileset.png" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dav5flk6jdvsj" path="res://scripts/shaders.gd" id="3_lbhrr"]
 [ext_resource type="Shader" uid="uid://dj6txe3xkaa27" path="res://shaders/shader.gdshader" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bx41pkkd7eqcp" path="res://prefabs/enemy.tscn" id="6_p57ef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("2_yqjtg")
@@ -60,3 +61,6 @@ offset_left = -3.0
 offset_top = -1010.0
 offset_right = 3233.0
 offset_bottom = 2469.0
+
+[node name="Enemy" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(170, -72)

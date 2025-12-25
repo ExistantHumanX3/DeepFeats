@@ -1,3 +1,31 @@
+***************************************BIG THING***************************************
+							WE NEED ART. I am not good enough
+would you mind making a half decent:
+	1.) Tileset
+		- Multiple floor/wall types
+	2.) Player Sprite
+		- Fits kind of the demon type thing
+	3.) Enemy Sprite
+		- Just a really evil demon
+	4.) player animation
+		- Walk
+		- Idle
+		- Dash
+	5.) enemy animation
+		- Walk
+		- Idle
+		- Attack
+	6.) a chest
+		- So that we can get new stuff
+	7.) a candycorn
+		- for the money
+	8.) Chest animation
+		- doesn't have to be long. can just be two frames.
+		
+		
+		ALL ANIMATIONS LISTED HAVE MINIMUM 2 FRAMES MAXIMUM 6
+
+
 Ok so we sadly don't have enough time to add a buncha cool weapons, but we can still do the chocolate thing:
 	
 	Candy corn: Used to buy upgrades and heals. Heals can only be purchased in-shop
