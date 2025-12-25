@@ -46,6 +46,11 @@ func _process(delta: float) -> void:
 func weaponSwapInput():
 	if Input.is_action_just_pressed("weapon_1"):
 		swapWeapon(0)
+	if Input.is_action_just_pressed("weapon_2"):
+		swapWeapon(1)
+	if Input.is_action_just_pressed("weapon_3"):
+		swapWeapon(2)
+
 func fireCheck():
 	if !canShoot:
 		return
