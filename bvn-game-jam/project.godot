@@ -24,6 +24,8 @@ enemy="*res://scripts/enemy.gd"
 player=""
 walls="a check for walls"
 screen_shake=""
+enemy="Check for enemy"
+player_hb="player hitbox"
 
 [input]
 

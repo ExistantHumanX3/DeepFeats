@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://by273wp31kcri" path="res://assets/tiles/tileset.png" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dav5flk6jdvsj" path="res://scripts/shaders.gd" id="3_lbhrr"]
 [ext_resource type="Shader" uid="uid://dj6txe3xkaa27" path="res://shaders/shader.gdshader" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://bx41pkkd7eqcp" path="res://prefabs/enemy.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://c1r8vic73bv40" path="res://prefabs/red_enemy.tscn" id="6_p57ef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("2_yqjtg")
@@ -19,7 +19,7 @@ texture = ExtResource("2_yqjtg")
 3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.26978874, -0.17985725, 0.449646, -3.7770329, 3.6871033, -6.2950544, 5.8454075, 1.0791531, 11.421028, 0.35971832, 15.018202, -1.0791512, 17.716085, 0.71943474, 15.198061, 3.7770348, 17.716085, 8.093643, 15.37792, 12.230394, -8.125086, 11.470707, -19.277163, 13.063862, -26.924301, 7.0098763, -26.924301, -8.603029, -17.536226, -8.2735, -10.8814535, -3.5971737, -5.1259747, 0.35971832)
 
 [sub_resource type="TileSet" id="TileSet_lnu2h"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
 sources/1 = SubResource("TileSetAtlasSource_yqjtg")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lbhrr"]
@@ -57,10 +57,10 @@ script = ExtResource("3_lbhrr")
 
 [node name="ShakeShader" type="ColorRect" parent="Player/Camera/Shaders"]
 material = SubResource("ShaderMaterial_lbhrr")
-offset_left = -3.0
-offset_top = -1010.0
-offset_right = 3233.0
-offset_bottom = 2469.0
+offset_left = -2.0
+offset_top = -1012.0
+offset_right = 3234.0
+offset_bottom = 2467.0
 
-[node name="Enemy" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(170, -72)
+[node name="RedEnemy" parent="." instance=ExtResource("6_p57ef")]
+position = Vector2(145, -77)

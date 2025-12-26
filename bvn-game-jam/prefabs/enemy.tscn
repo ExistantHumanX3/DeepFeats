@@ -1,37 +1,69 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx41pkkd7eqcp"]
+[gd_scene load_steps=11 format=3 uid="uid://bx41pkkd7eqcp"]
 
 [ext_resource type="Script" uid="uid://bupvra5xo3u0p" path="res://scripts/enemy.gd" id="1_yfjof"]
-[ext_resource type="Script" uid="uid://dgftn4ne6jrnu" path="res://prefabs/center.gd" id="2_a7d0n"]
-[ext_resource type="SpriteFrames" uid="uid://cbqblw7q5d50h" path="res://assets/OBAMA/OBAMA.tres" id="2_cypye"]
+[ext_resource type="Script" uid="uid://dgftn4ne6jrnu" path="res://scripts/center.gd" id="2_a7d0n"]
 [ext_resource type="Script" uid="uid://b40wql0t0ocq6" path="res://scripts/shoot_from.gd" id="3_aivmq"]
-[ext_resource type="Texture2D" uid="uid://dnrt430slddh" path="res://assets/weapons/gun.png" id="4_qnk7q"]
+[ext_resource type="Texture2D" uid="uid://byrs0t8aqr7dc" path="res://assets/weapons/gun2.png" id="4_aivmq"]
+
+[sub_resource type="Curve" id="Curve_a7d0n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0.21348321), -1.8202248, -1.8202248, 0, 0, Vector2(0.70454544, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.030898869, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_y2yuv"]
+curve = SubResource("Curve_a7d0n")
+
+[sub_resource type="Curve" id="Curve_aivmq"]
+_data = [Vector2(0, 0.8876405), 0.0, 0.09269636, 0, 0, Vector2(0.4848485, 0.6516854), -0.5767791, -0.5767791, 0, 0, Vector2(0.6212121, 0.8988764), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_6woab"]
+curve = SubResource("Curve_aivmq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qnk7q"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.321
+spread = 53.889
+initial_velocity_min = 1.0
+initial_velocity_max = 111.77
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_6woab")
+alpha_curve = SubResource("CurveTexture_y2yuv")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a7d0n"]
-size = Vector2(28, 22)
+size = Vector2(15, 27)
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_yfjof")
 
 [node name="Center" type="Node2D" parent="."]
 script = ExtResource("2_a7d0n")
 
-[node name="ShootFrom" type="Marker2D" parent="Center"]
-position = Vector2(15, 0)
+[node name="ShootFrom" type="Marker2D" parent="Center" groups=["enemy"]]
+position = Vector2(23, 0)
 script = ExtResource("3_aivmq")
 
 [node name="ShootCooldown" type="Timer" parent="Center/ShootFrom"]
 
-[node name="Gun" type="Sprite2D" parent="Center/ShootFrom"]
-position = Vector2(7, 0)
-texture = ExtResource("4_qnk7q")
+[node name="Particles" type="GPUParticles2D" parent="Center/ShootFrom"]
+scale = Vector2(3.2793417, 3.2793417)
+emitting = false
+amount = 25
+lifetime = 0.5
+one_shot = true
+preprocess = 0.01
+explosiveness = 1.0
+randomness = 0.15
+process_material = SubResource("ParticleProcessMaterial_qnk7q")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(3.8146973e-06, 0)
-scale = Vector2(0.11055278, 0.11055276)
-sprite_frames = ExtResource("2_cypye")
+[node name="Gun" type="Sprite2D" parent="Center"]
+position = Vector2(16, 0)
+texture = ExtResource("4_aivmq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_a7d0n")
-disabled = true
 
 [connection signal="timeout" from="Center/ShootFrom/ShootCooldown" to="Center/ShootFrom" method="_on_shoot_cooldown_timeout"]

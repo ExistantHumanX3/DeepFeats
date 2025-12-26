@@ -40,7 +40,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if game.useMouse:
-		look_at(get_global_mouse_position()) # TODO: this broke for some reason please fix it
+		look_at(get_global_mouse_position())
 	else:
 		var input_dir = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 		var look_dir = input_dir + global_position

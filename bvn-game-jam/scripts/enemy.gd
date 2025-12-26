@@ -6,6 +6,8 @@ enum AIState {
 	FLEE
 }
 
+@export var health: int = 1
+
 var state: AIState = AIState.IDLE
 
 func get_state() -> AIState:
@@ -34,10 +36,23 @@ var dir2Player
 func _physics_process(delta: float) -> void:
 	if player == null:
 		return
+	death_check()
+	state_stuff()
+	move_and_slide()
+
+
+func death_check():
+	if health <= 0:
+		queue_free()
+
+
+func get_hit(damage: int):
+	health -= damage
+
+func state_stuff():
 	var dir2p = player.global_position - global_position
 	self.dir2Player = dir2p
 	var dis2p = dir2p.length()
-	
 	match state:
 		AIState.IDLE:
 			velocity = Vector2.ZERO
@@ -60,4 +75,3 @@ func _physics_process(delta: float) -> void:
 			if dis2p > FLEE_EXIT:
 				state = AIState.CHASE
 	
-	move_and_slide()

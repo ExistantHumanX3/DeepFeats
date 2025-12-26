@@ -5,8 +5,9 @@ var kb_vector: Vector2
 var move_vector: Vector2
 var anim_timer: int = 0
 var is_dashing: bool = false
-var can_dash: bool = true;
+var can_dash: bool = true
 
+var health: int = 3
 
 @onready var sprites: AnimatedSprite2D = $AnimatedSprite2D
 @onready var shaders: CanvasLayer = $Camera/Shaders
@@ -20,7 +21,9 @@ const dash_timer = 5
 func _physics_process(delta) -> void:
 	sprites.play("idle")
 	movementInput()
+	death_check()
 	move_and_slide()
+	
 
 # Gets input direction as a vector so it works with controllers
 func movementInput():
@@ -66,6 +69,10 @@ func movementInput():
 	velocity = move_vector
 	
 
+func death_check():
+	if health <= 0:
+		print("died")
+		get_tree().reload_current_scene()
 
 func knockback(kb_vector: Vector2):
 	self.kb_vector = kb_vector * get_physics_process_delta_time()
@@ -76,3 +83,6 @@ func play_anim(name: String):
 
 func _on_dash_cooldown_timeout() -> void:
 	can_dash = true
+
+func get_hit(damage: int) -> void:
+	health -= damage

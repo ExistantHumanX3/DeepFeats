@@ -4,11 +4,14 @@ extends Node2D
 var can_shoot = true
 @onready var this: Marker2D = $"."
 
-@onready var Bullet = preload("res://prefabs/player_bullet.tscn")
+@onready var Bullet = preload("res://prefabs/enemy_bullet.tscn")
 @onready var cooldown: Timer = $ShootCooldown
 @onready var center: Node2D = $".."
 @onready var enemy: CharacterBody2D = $"../.."
+@onready var particles: GPUParticles2D = $Particles
 
+func _ready():
+	particles.emitting = false
 
 
 func _physics_process(delta: float) -> void:
@@ -19,6 +22,9 @@ func shoot():
 	if cooldown == null:
 		return
 	cooldown.start()
+	particles.restart()
+	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
+	shake_layer.start_shake(0.2)
 	can_shoot = false
 
 

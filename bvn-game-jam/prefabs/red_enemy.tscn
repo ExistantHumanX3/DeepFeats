@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1r8vic73bv40"]
+
+[ext_resource type="PackedScene" uid="uid://bx41pkkd7eqcp" path="res://prefabs/enemy.tscn" id="1_0eikk"]
+[ext_resource type="Texture2D" uid="uid://cj6ngw5bok4qe" path="res://assets/entities/red_enemy.png" id="2_xg7ds"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ny7bu"]
+atlas = ExtResource("2_xg7ds")
+region = Rect2(0, 0, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77n7h"]
+atlas = ExtResource("2_xg7ds")
+region = Rect2(0, 32, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66uk6"]
+atlas = ExtResource("2_xg7ds")
+region = Rect2(18, 0, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vyww"]
+atlas = ExtResource("2_xg7ds")
+region = Rect2(18, 32, 18, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xixs3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ny7bu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77n7h")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66uk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vyww")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="RedEnemy" instance=ExtResource("1_0eikk")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(-1, -3)
+sprite_frames = SubResource("SpriteFrames_xixs3")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.19490081

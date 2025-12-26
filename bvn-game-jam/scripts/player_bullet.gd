@@ -40,13 +40,15 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	remove_bullet_and_kill_enemies()
+	remove_bullet_and_kill_enemies(body)
 
-func _on_ray_cast_child_entered_tree(node: Node) -> void:
+func _on_ray_cast_child_entered_tree(node: Node2D) -> void:
 	if node.is_in_group("walls"):
-		remove_bullet_and_kill_enemies()
+		remove_bullet_and_kill_enemies(node)
 
-func remove_bullet_and_kill_enemies():
+func remove_bullet_and_kill_enemies(body: Node2D):
+	if body.is_in_group("enemy"):
+		body.get_hit(damage)
 	queue_free()
 
 func changeSprite(index:int):
