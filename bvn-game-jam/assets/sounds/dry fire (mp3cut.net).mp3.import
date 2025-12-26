@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c20eyd4n8ifb4"
+path="res://.godot/imported/dry fire (mp3cut.net).mp3-43204cbce0b5dbba469cfd470ebe5a9c.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/dry fire (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/dry fire (mp3cut.net).mp3-43204cbce0b5dbba469cfd470ebe5a9c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

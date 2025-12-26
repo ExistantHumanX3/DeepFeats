@@ -14,7 +14,7 @@ func get_state() -> AIState:
 func get_states() -> Dictionary:
 	return AIState
 
-@onready var player: CharacterBody2D = $"../Player"
+@onready var player: CharacterBody2D = $"../Player" # godot why tf are you erroring ru stupid
 
 @export var SPEED: float = 30
 @export var CHACE_DIST: float = 400

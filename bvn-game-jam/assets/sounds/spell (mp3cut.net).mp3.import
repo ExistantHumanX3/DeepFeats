@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dw5b1a51t1wxl"
+path="res://.godot/imported/spell (mp3cut.net).mp3-360927632a998118815a3259af4e8bf6.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/spell (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/spell (mp3cut.net).mp3-360927632a998118815a3259af4e8bf6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

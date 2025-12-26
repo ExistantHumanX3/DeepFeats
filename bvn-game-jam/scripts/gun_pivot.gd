@@ -2,19 +2,25 @@ extends Node2D
 
 @onready var sprite: Sprite2D = $Gun/Sprite2D
 @onready var shaders: CanvasLayer = $"../Camera/Shaders"
-@onready var cooldown: Timer = $Gun/Cooldown
-@onready var shoot_sound: AudioStreamPlayer2D = $ShootSound
-# TODO: please add sound of empty gun
+@onready var gun_cooldown: Timer = $Gun/Cooldown
+@onready var gun_sound: AudioStreamPlayer2D = $ShootSound
+@onready var melee_sound: AudioStreamPlayer2D = $MeleeSound
+@onready var spell_sound: AudioStreamPlayer2D = $SpellSound
+@onready var gunBlank_sound: AudioStreamPlayer2D = $ShootBlankSound
+@onready var meleeBlank_sound: AudioStreamPlayer2D = $MeleeBlankSound
+@onready var spellBlank_sound: AudioStreamPlayer2D = $SpellBlankSound
+@onready var cheater_sound: AudioStreamPlayer2D = $Wario
+
 @onready var particles: GPUParticles2D = $Gun/BulletFrom/Particles
 
 # Player Inventory
-var ammo = [69420, 10, 2] # 0: starbreaker; 1: toodles roll; 2: rerro focher
+var ammo = [8, 16, 8] # 0: starbreaker; 1: toodles roll; 2: rerro focher
 var currentWeapon = 0 # 0: gun; 1: baseball bat; 2: staff
 
 var canShoot = true;
 var gunRecoil = 100 # Why var? An upgrade will allow the bat to dash further 
-var batRecoil = -300
-var staffRecoil = 0
+var batRecoil = -100
+var staffRecoil = 200
 var recoilList: Array = [gunRecoil, batRecoil, staffRecoil]
 var currentRecoil = 100
 # textures
@@ -22,10 +28,9 @@ const TEXTURE_GUN: Texture = preload("res://assets/weapons/gun2.png")
 const TEXTURE_BAT: Texture = preload("res://assets/weapons/baseball stick.png")
 const TEXTURE_STAFF: Texture = preload("res://assets/weapons/staph.png")
 const textureList: Array  = [TEXTURE_GUN, TEXTURE_BAT, TEXTURE_STAFF]
-const offsetList: Array = [[8,-2],[8,0],[8,0]]# TODO: figure out how to turn off rotation for the staff
+const offsetList: Array = [[2,-2],[12,2],[0,0]]
 
-
-@export var Bullet : PackedScene = preload("res://prefabs/player_bullet.tscn")
+@export var Bullet: PackedScene = preload("res://prefabs/player_bullet.tscn")
 @onready var game: Node2D = $"../../GameController"
 
 
@@ -42,6 +47,10 @@ func _process(delta: float) -> void:
 		look_at(look_dir)
 	weaponSwapInput()
 	fireCheck()
+	if Input.is_action_just_pressed("debug_getAmmoBack"):
+		ammo = [10, 10, 10]
+		cheater_sound.play()
+		
 
 func weaponSwapInput():
 	if Input.is_action_just_pressed("weapon_1"):
@@ -54,44 +63,45 @@ func weaponSwapInput():
 func fireCheck():
 	if !canShoot:
 		return
-	if Input.is_action_just_pressed("shoot"):
-		# Special behavior for Baseballbat (can fire without ammo but much weaker)
-		if currentWeapon == 1:
-			canShoot = false
-			cooldown.start()
-			if ammo[currentWeapon] > 0:
-				shoot()
-			else:
-				shoot()
-			return
-		# Other weapon behavior
-		if ammo[currentWeapon] > 0:
-			ammo[currentWeapon] -= 1
-			shoot()
-			canShoot = false
-			cooldown.start()
-		
-		else: 
-			# Play blank sound.
-			return
+	if !Input.is_action_just_pressed("shoot"):
+		return
+	if(ammo[currentWeapon] < 1):
+		getCurrentWeaponBlankSound().play()
+		return
+	if ammo[currentWeapon] > 0:
+		ammo[currentWeapon] -= 1
+	shoot()
+	canShoot = false
+	gun_cooldown.start()
 
 func shoot():
-	var b = Bullet.instantiate()
-	get_tree().root.add_child(b)
-	b.transform = $Gun/BulletFrom.global_transform
-	b.initialize(currentWeapon,1)
-	
-	get_parent().knockback(gunRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
-	
-	shoot_sound.play()
-	
 	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
-	shake_layer.start_shake(0.2)
+	match currentWeapon: # In hindsight, I should've created a weapon Class but im too lazy and new to godot :D
+		0:
+			createBullet(1,randf_range(-1,1))
+			shake_layer.start_shake(0.2)
+			particles.restart()
+		1:
+			return # TODO: add stuff
+		2:
+			bulletFan(10,90,1)
+	# universal things
+	getCurrentWeaponSound().play()
+	get_parent().knockback(currentRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
+
+func createBullet(damage:float, rotOffset:float = 0):
+	# create bullet!!
+	Bullet = preload("res://prefabs/player_bullet.tscn")
+	var b := Bullet.instantiate()
+	get_tree().root.add_child(b) 
+	b.initialize(currentWeapon,damage)
 	
-	particles.restart()
-
-
-func _on_cooldown_end() -> void:
+	# give bullet place to exist!!
+	self.rotation_degrees += rotOffset
+	b.transform = $Gun/BulletFrom.global_transform
+	self.rotation_degrees -= rotOffset
+	
+func _on_gun_cooldown_end() -> void:
 	canShoot = true;
 
 func changeSprite(index:int):
@@ -101,4 +111,32 @@ func swapWeapon(index:int):
 	changeSprite(index)
 	currentWeapon = index
 	currentRecoil = recoilList[index]
-	# $Player/GunPivot.transform = Vector2(offsetList[index][0],offsetList[index][1]) TODO: figure out how to do change the offset
+	get_node("Gun").get_node("Sprite2D").offset = Vector2(offsetList[index][0], offsetList[index][1])
+
+func getCurrentWeaponSound() -> AudioStreamPlayer2D:
+	match currentWeapon:
+		0:
+			return gun_sound
+		1:
+			return melee_sound
+		2:
+			return spell_sound
+		_:
+			push_error("Invalid weapon (range 0-2, got " + currentWeapon + ")")
+			return gun_sound
+			
+func getCurrentWeaponBlankSound() -> AudioStreamPlayer2D:
+	match currentWeapon:
+		0:
+			return gunBlank_sound
+		1:
+			return meleeBlank_sound
+		2:
+			return spellBlank_sound
+		_:
+			push_error("Invalid weapon (range 0-2, got " + currentWeapon + ")")
+			return gun_sound
+func bulletFan(count:int, angle:float, damage:int = 1):
+	for i:int in count-1:
+		createBullet(damage, (-angle/2)+i*(angle/(count-1)))
+	createBullet(damage, (-angle/2)+count*(angle/count))

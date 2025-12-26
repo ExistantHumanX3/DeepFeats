@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://djgmi6cjxehwt"]
+[gd_scene load_steps=13 format=3 uid="uid://djgmi6cjxehwt"]
 
 [ext_resource type="Script" uid="uid://c5npy4e75b0n2" path="res://scripts/gun_pivot.gd" id="1_vg2ei"]
 [ext_resource type="Texture2D" uid="uid://byrs0t8aqr7dc" path="res://assets/weapons/gun2.png" id="2_4ps28"]
 [ext_resource type="AudioStream" uid="uid://cbom3qtb80vnm" path="res://assets/sounds/shoot.mp3" id="3_4ps28"]
+[ext_resource type="AudioStream" uid="uid://dw5b1a51t1wxl" path="res://assets/sounds/spell (mp3cut.net).mp3" id="4_y2yuv"]
+[ext_resource type="AudioStream" uid="uid://c20eyd4n8ifb4" path="res://assets/sounds/dry fire (mp3cut.net).mp3" id="5_hyodh"]
+[ext_resource type="AudioStream" uid="uid://cqe3alh7dj4ln" path="res://assets/sounds/spell_fail.mp3" id="6_2t4hd"]
+[ext_resource type="AudioStream" uid="uid://bovelbtxoefb" path="res://assets/sounds/OH MY GOD!!! WAAAAAAH!!!!.mp3" id="7_2t4hd"]
 
 [sub_resource type="Curve" id="Curve_4ps28"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0.21348321), -1.8202248, -1.8202248, 0, 0, Vector2(0.70454544, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.030898869, 0.0, 0, 0]
@@ -40,6 +44,7 @@ position = Vector2(15, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Gun"]
 texture = ExtResource("2_4ps28")
+offset = Vector2(2, 0)
 
 [node name="BulletFrom" type="Marker2D" parent="Gun"]
 position = Vector2(10, 0)
@@ -59,7 +64,29 @@ wait_time = 0.3
 
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_4ps28")
-max_distance = 4096.0
+volume_db = -12.0
+max_distance = 50.0
 bus = &"Shoot SFX"
 
-[connection signal="timeout" from="Gun/Cooldown" to="." method="_on_cooldown_end"]
+[node name="MeleeSound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SpellSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_y2yuv")
+volume_db = -3.0
+bus = &"Shoot SFX"
+
+[node name="ShootBlankSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hyodh")
+volume_db = 12.0
+
+[node name="MeleeBlankSound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="SpellBlankSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_2t4hd")
+volume_db = 6.0
+
+[node name="Wario" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_2t4hd")
+volume_db = -6.0
+
+[connection signal="timeout" from="Gun/Cooldown" to="." method="_on_gun_cooldown_end"]
