@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgt3gp22xkyg5"]
+
+[ext_resource type="PackedScene" uid="uid://bx41pkkd7eqcp" path="res://prefabs/enemy.tscn" id="1_lr0qq"]
+[ext_resource type="Texture2D" uid="uid://cu61hkjn5w1hf" path="res://assets/weapons/staph.png" id="2_37ed3"]
+[ext_resource type="Texture2D" uid="uid://5bdn0rkr5vpq" path="res://assets/entities/blue_enemy.png" id="2_hewsl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37ed3"]
+atlas = ExtResource("2_hewsl")
+region = Rect2(0, 0, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ankgh"]
+atlas = ExtResource("2_hewsl")
+region = Rect2(0, 32, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i540f"]
+atlas = ExtResource("2_hewsl")
+region = Rect2(18, 0, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rjdy"]
+atlas = ExtResource("2_hewsl")
+region = Rect2(18, 32, 18, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jwqip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37ed3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ankgh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i540f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rjdy")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="BlueEnemy" instance=ExtResource("1_lr0qq")]
+
+[node name="Gun" parent="Center" index="1"]
+position = Vector2(17, -1)
+scale = Vector2(0.79687506, 0.82812494)
+texture = ExtResource("2_37ed3")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-0.5, 0.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_jwqip")
+animation = &"walk"
+autoplay = "idle"
+frame_progress = 0.054506626

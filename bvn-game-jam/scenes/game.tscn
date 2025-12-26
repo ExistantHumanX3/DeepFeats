@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvpe0pf7gtj70"]
+[gd_scene load_steps=11 format=3 uid="uid://cvpe0pf7gtj70"]
 
 [ext_resource type="Script" uid="uid://bw5glfi4qgahc" path="res://scripts/game_controller.gd" id="1_iywne"]
 [ext_resource type="PackedScene" uid="uid://clqrvj5kepdfw" path="res://prefabs/player.tscn" id="1_uwrxv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dav5flk6jdvsj" path="res://scripts/shaders.gd" id="3_lbhrr"]
 [ext_resource type="Shader" uid="uid://dj6txe3xkaa27" path="res://shaders/shader.gdshader" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://c1r8vic73bv40" path="res://prefabs/red_enemy.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dgt3gp22xkyg5" path="res://prefabs/blue_enemy.tscn" id="7_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("2_yqjtg")
@@ -64,3 +65,7 @@ offset_bottom = 2467.0
 
 [node name="RedEnemy" parent="." instance=ExtResource("6_p57ef")]
 position = Vector2(145, -77)
+
+[node name="BlueEnemy" parent="." instance=ExtResource("7_u5sy4")]
+position = Vector2(-121, -95)
+health = 3

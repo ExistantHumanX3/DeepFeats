@@ -19,9 +19,9 @@ func get_states() -> Dictionary:
 @onready var player: CharacterBody2D = $"../Player" # godot why tf are you erroring ru stupid
 
 @export var SPEED: float = 30
-@export var CHACE_DIST: float = 400
+@export var CHACE_DIST: float = 300
 @export var FLEE_DIST: float = 75
-@export var CHACE_EXIT: float = 325
+@export var CHACE_EXIT: float = 275
 @export var FLEE_EXIT: float = 100
 
 var dir2Player
@@ -75,3 +75,8 @@ func state_stuff():
 			if dis2p > FLEE_EXIT:
 				state = AIState.CHASE
 	
+func get_chase_range() -> int:
+	return CHACE_DIST
+
+func get_dis2p() -> float:
+	return dir2Player.length()

@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 		shoot()
 
 func shoot():
-	if cooldown == null:
+	if cooldown == null || enemy.get_chase_range() + 25 >= enemy.get_dis2p():
 		return
 	cooldown.start()
 	particles.restart()
