@@ -46,6 +46,10 @@ animations = [{
 }]
 
 [node name="BlueEnemy" instance=ExtResource("1_lr0qq")]
+health = 3
+
+[node name="ShootFrom" parent="Center" index="0"]
+bullet_type = 1
 
 [node name="Gun" parent="Center" index="1"]
 position = Vector2(17, -1)

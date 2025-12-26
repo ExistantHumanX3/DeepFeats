@@ -2,6 +2,7 @@ extends Node2D
 
 
 var can_shoot = true
+@export var strength: int = 1
 @onready var this: Marker2D = $"."
 
 @onready var Bullet = preload("res://prefabs/enemy_bullet.tscn")
@@ -9,6 +10,8 @@ var can_shoot = true
 @onready var center: Node2D = $".."
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var particles: GPUParticles2D = $Particles
+
+@export var bullet_type: int = 0
 
 func _ready():
 	particles.emitting = false
@@ -19,7 +22,7 @@ func _physics_process(delta: float) -> void:
 		shoot()
 
 func shoot():
-	if cooldown == null || enemy.get_chase_range() + 25 >= enemy.get_dis2p():
+	if cooldown == null || !enemy.can_shoot():
 		return
 	cooldown.start()
 	particles.restart()
@@ -29,7 +32,7 @@ func shoot():
 
 
 func _on_shoot_cooldown_timeout() -> void:
-	var b = Bullet.instantiate()
+	var b = Bullet.instantiate(bullet_type)
 	get_tree().root.add_child(b)
 	b.transform = center.transform
 	b.position = this.global_position

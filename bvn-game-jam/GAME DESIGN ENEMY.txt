@@ -2,20 +2,7 @@
 							WE NEED ART. I am not good enough
 would you mind making a half decent:
 
-Bracketed is things Yao has completed.
-	1.) Tileset
-		- Multiple floor/wall types
-		[!!] I can't do tilesets.
-			fine...
-	2.) Player Sprite
-		- Fits kind of the demon type thing
-		
-		
-		- IT IS EXTREMELY IMPORTANT THAT YOU ADD THE DIFFERENT COLORED ENEMIES AND THEIR RESPECTIVE AMMO TYPES OR WE WILL GET DISQUALIFIED FROM THE GAME JAM
-			- make it your first priority ig
-			
-			
-			
+
 	4.) player animation
 		- Walk
 		- Idle
@@ -48,7 +35,6 @@ Ok so we sadly don't have enough time to add a buncha cool weapons, but we can s
 		
 	Green: Toodles rolls used to empower melee weapons. Used by melee rushing enemies
 	GREEN enemy behavior:
-		- High health
 		- High movement speed, however the player will always be able to outrun them
 		- Will try to swing at player when close. Slow down when swinging
 		- Deal knockback so that you don't get swarmed (unless you get cornered)

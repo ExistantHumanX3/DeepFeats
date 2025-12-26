@@ -11,7 +11,9 @@ var health: int = 3
 
 @onready var sprites: AnimatedSprite2D = $AnimatedSprite2D
 @onready var shaders: CanvasLayer = $Camera/Shaders
+@onready var gun: Node2D = $GunPivot
 
+@export var candy: int = 0
 
 
 const SPEED = 200
@@ -86,3 +88,21 @@ func _on_dash_cooldown_timeout() -> void:
 
 func get_hit(damage: int) -> void:
 	health -= damage
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemy"):
+		get_hit(2)
+	elif body.is_in_group("candy"):
+		candy += 1
+	elif body.is_in_group("starbreaker"):
+		gun.update_ammo(0, 1)
+	elif body.is_in_group("toodles"):
+		gun.update_ammo(1, 1)
+	elif body.is_in_group("rerrero_focher"):
+		gun.update_ammo(2, 1)
+
+
+
+func get_candy() -> int:
+	return candy

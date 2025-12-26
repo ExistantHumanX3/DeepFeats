@@ -33,7 +33,7 @@ hue_variation_min = -2.2351742e-08
 hue_variation_max = -2.2351742e-08
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a7d0n"]
-size = Vector2(17, 25)
+size = Vector2(17, 29)
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_yfjof")
@@ -62,7 +62,7 @@ process_material = SubResource("ParticleProcessMaterial_qnk7q")
 position = Vector2(16, 0)
 texture = ExtResource("4_aivmq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemy"]]
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_a7d0n")
 

@@ -60,6 +60,9 @@ func weaponSwapInput():
 	if Input.is_action_just_pressed("weapon_3"):
 		swapWeapon(2)
 
+func update_ammo(index: int, amount: int):
+	ammo[index] = amount
+
 func fireCheck():
 	if !canShoot:
 		return

@@ -16,13 +16,14 @@ func get_state() -> AIState:
 func get_states() -> Dictionary:
 	return AIState
 
-@onready var player: CharacterBody2D = $"../Player" # godot why tf are you erroring ru stupid
+@onready var player: CharacterBody2D = $"../Player"
 
 @export var SPEED: float = 30
 @export var CHACE_DIST: float = 300
 @export var FLEE_DIST: float = 75
 @export var CHACE_EXIT: float = 275
 @export var FLEE_EXIT: float = 100
+const CANDY_CORN = preload("uid://bdcgk1s00mfv7")
 
 var dir2Player
 # TODO
@@ -75,8 +76,7 @@ func state_stuff():
 			if dis2p > FLEE_EXIT:
 				state = AIState.CHASE
 	
-func get_chase_range() -> int:
-	return CHACE_DIST
-
-func get_dis2p() -> float:
-	return dir2Player.length()
+func can_shoot() -> bool:
+	if dir2Player.length() < CHACE_EXIT:
+		return true
+	return false
