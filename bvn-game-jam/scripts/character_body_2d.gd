@@ -16,7 +16,7 @@ var health: int = 3
 @export var candy: int = 0
 
 
-const SPEED = 200
+const SPEED = 150
 const DASH_SPEED = 4.0
 const dash_timer = 5
 

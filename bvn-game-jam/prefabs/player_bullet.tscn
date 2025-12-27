@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://cq8a6673f4u3y" path="res://scripts/player_bullet.gd" id="1_8y3uu"]
 [ext_resource type="Texture2D" uid="uid://by0ngs114bkud" path="res://assets/bullets/basic.png" id="2_5hife"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7xpxv"]
-radius = 2.0
-height = 18.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8y3uu"]
+size = Vector2(2, 18)
 
 [node name="PlayerBullet" type="Area2D"]
 collision_mask = 3
@@ -18,6 +17,6 @@ texture = ExtResource("2_5hife")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-5, 0)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_7xpxv")
+shape = SubResource("RectangleShape2D_8y3uu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

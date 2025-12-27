@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bws0llni1a6x8"
-path="res://.godot/imported/candyCorn.png-762423adecd8501d4927a676262a1e7b.ctex"
+uid="uid://c37htru6regem"
+path="res://.godot/imported/player_dash.png-580246bc87539c7c891a642e1208fd75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/candyCorn.png"
-dest_files=["res://.godot/imported/candyCorn.png-762423adecd8501d4927a676262a1e7b.ctex"]
+source_file="res://assets/entities/player_dash.png"
+dest_files=["res://.godot/imported/player_dash.png-580246bc87539c7c891a642e1208fd75.ctex"]
 
 [params]
 

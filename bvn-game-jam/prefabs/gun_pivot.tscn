@@ -45,7 +45,7 @@ position = Vector2(15, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Gun"]
 texture = ExtResource("2_4ps28")
-offset = Vector2(2, 0)
+offset = Vector2(2, 1)
 
 [node name="BulletFrom" type="Marker2D" parent="Gun"]
 position = Vector2(10, 0)
@@ -94,4 +94,4 @@ volume_db = 6.0
 stream = ExtResource("7_2t4hd")
 volume_db = -6.0
 
-[connection signal="timeout" from="Gun/Cooldown" to="." method="_on_gun_cooldown_end"]
+[connection signal="timeout" from="Gun/Cooldown" to="." method="_on_cooldown_end"]

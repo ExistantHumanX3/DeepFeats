@@ -1,7 +1,7 @@
 extends Area2D
 
-const bulletSpeedList: Array = [750, 200, 100]
-
+const bulletSpeedList: Array = [750, 150, 100]
+const hitboxSizeList: Array = [[2,18],[20,64],[20,20],[20,32]]
 const textureList = [TEXTURE_GUN, TEXTURE_BAT, TEXTURE_STAFF, TEXTURE_BAT_WEAK]
 
 const TEXTURE_GUN: Texture = preload("res://assets/bullets/basic.png")
@@ -31,11 +31,13 @@ func initialize(bulletType:int, damageInput:float, isWeak:bool = false):
 			push_error("You typed the player_bullet constructor wrong. (func initialize)")
 			queue_free()
 			return
+	setHitboxDimensions(bulletType)
 	self.damage = damageInput
 	bulletSpeed = bulletSpeedList[bulletType]
 	changeSprite(bulletType)
 	if isWeak:
 		changeSprite(3)
+		setHitboxDimensions(3)
 
 func _physics_process(delta: float) -> void:
 	position += transform.x * bulletSpeed * delta
@@ -55,7 +57,7 @@ func remove_bullet_and_kill_enemies(body: Node2D):
 	queue_free()
 
 func changeSprite(index:int):
-	self.get_node("Sprite2D").texture = textureList[index]
+	get_node("Sprite2D").texture = textureList[index]
 	
 func lifetime_end() -> void:
 	queue_free()
@@ -66,8 +68,12 @@ func runDownTimer(delta):
 		queue_free()
 		return
 	if lifetime <= fadeOutTimestamp:
-		self.get_node("Sprite2D").self_modulate.a = lifetime/fadeOutTimestamp
+		get_node("Sprite2D").self_modulate.a = lifetime/fadeOutTimestamp
 	
 func setLifetime(duration:float):
 	lifetime = duration
 	lifetimeMax = duration
+	
+func setHitboxDimensions(input:int):
+	var rect := $CollisionShape2D.shape as RectangleShape2D
+	rect.size = Vector2(hitboxSizeList[input][0],hitboxSizeList[input][1])

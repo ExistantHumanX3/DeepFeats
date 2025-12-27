@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var sprite: Sprite2D = $Gun/Sprite2D
 @onready var shaders: CanvasLayer = $"../Camera/Shaders"
-@onready var gun_cooldown: Timer = $Gun/Cooldown
+@onready var cooldown: Timer = $Gun/Cooldown
 @onready var gun_sound: AudioStreamPlayer2D = $ShootSound
 @onready var melee_sound: AudioStreamPlayer2D = $MeleeSound
 @onready var spell_sound: AudioStreamPlayer2D = $SpellSound
@@ -29,7 +29,7 @@ const TEXTURE_GUN: Texture = preload("res://assets/weapons/gun2.png")
 const TEXTURE_BAT: Texture = preload("res://assets/weapons/baseball stick.png")
 const TEXTURE_STAFF: Texture = preload("res://assets/weapons/staph.png")
 const textureList: Array  = [TEXTURE_GUN, TEXTURE_BAT, TEXTURE_STAFF]
-const offsetList: Array = [[2,-2],[12,2],[0,0]]
+const offsetList: Array = [[2,1],[12,0],[-3,0]]
 
 @export var Bullet: PackedScene = preload("res://prefabs/player_bullet.tscn")
 @onready var game: Node2D = $"../../GameController"
@@ -48,8 +48,8 @@ func _process(delta: float) -> void:
 		var look_dir = input_dir + global_position
 		look_at(look_dir)
 	weaponSwapInput()
-	if(currentWeapon == 1 && pivotOffset < 70):
-		pivotOffset += 10
+	if(currentWeapon == 1):
+		resetBat()
 	fireCheck()
 	if Input.is_action_just_pressed("debug_getAmmoBack"):
 		ammo = [10, 10, 10]
@@ -79,17 +79,14 @@ func fireCheck():
 		# shoot anyways, but weak
 		look_at(get_global_mouse_position())
 		createBullet(1,-5,true)
-		get_parent().knockback(currentRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
+		get_parent().knockback(currentRecoil/2*($Gun/BulletFrom.global_position - get_parent().global_position))
 		pivotOffset = -50
 		rotation += deg_to_rad(pivotOffset)
-		canShoot = false
-		gun_cooldown.start()
+		weaponCooldown(0.6)
 		return
 	if ammo[currentWeapon] > 0:
 		ammo[currentWeapon] -= 1
 	shoot()
-	canShoot = false
-	gun_cooldown.start()
 
 func shoot():
 	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
@@ -99,12 +96,15 @@ func shoot():
 			createBullet(1,randf_range(-1,1))
 			shake_layer.start_shake(0.2)
 			particles.restart()
+			weaponCooldown(0.2)
 		1:
 			createBullet(3,-15)
 			shake_layer.start_shake(0.1)
 			pivotOffset = -70
+			weaponCooldown(0.3)
 		2:
 			bulletFan(10,90,1)
+			weaponCooldown(2.5)
 	# universal things
 	getCurrentWeaponSound().play()
 	get_parent().knockback(currentRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
@@ -121,7 +121,7 @@ func createBullet(damage:float, rotOffset:float = 0, isWeak:bool = false):
 	b.transform = $Gun/BulletFrom.global_transform
 	self.rotation_degrees -= rotOffset
 	
-func _on_gun_cooldown_end() -> void:
+func _on_cooldown_end() -> void:
 	canShoot = true;
 
 func changeSprite(index:int):
@@ -160,7 +160,31 @@ func getCurrentWeaponBlankSound() -> AudioStreamPlayer2D:
 		_:
 			push_error("Invalid weapon (range 0-2, got " + currentWeapon + ")")
 			return gun_sound
+
 func bulletFan(count:int, angle:float, damage:int = 1):
 	for i:int in count-1:
 		createBullet(damage, (-angle/2)+i*(angle/(count-1)))
 	createBullet(damage, (-angle/2)+count*(angle/count))
+
+func weaponCooldown(input:float):
+	get_node("Gun/Cooldown").wait_time = input
+	canShoot = false
+	cooldown.start()
+
+func resetBat():
+	var resetPosition:float
+	var resetSpeed: float
+	if ammo[1] < 1:
+		resetPosition = 30
+		resetSpeed = 3
+	else:
+		resetPosition = 70
+		resetSpeed = 10
+	if(pivotOffset == resetPosition):
+		return
+	if(pivotOffset-resetPosition > resetSpeed):
+		pivotOffset -= resetSpeed
+	elif(pivotOffset-resetPosition < -resetSpeed):
+		pivotOffset += resetSpeed
+	else:
+		pivotOffset = resetPosition
