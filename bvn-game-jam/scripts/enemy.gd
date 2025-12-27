@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+# TODO: make the enemies fire the right kind of ammo or we're cooked
 enum AIState {
 	IDLE,
 	CHASE,
@@ -44,7 +44,6 @@ func _physics_process(delta: float) -> void:
 
 func death_check():
 	if health <= 0:
-		player.get_node("GunPivot").giveAmmo(0,1)
 		queue_free()
 
 

@@ -94,4 +94,9 @@ volume_db = 6.0
 stream = ExtResource("7_2t4hd")
 volume_db = -6.0
 
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
 [connection signal="timeout" from="Gun/Cooldown" to="." method="_on_cooldown_end"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

@@ -194,4 +194,4 @@ func giveAmmo(amount:int, type:int):
 
 
 func _on_reload_timer_timeout() -> void:
-	pass # Replace with function body.
+	ammo = [15, 4, 3]
