@@ -42,7 +42,7 @@ func actuallyshoot():
 			weaponCooldown(randf_range(1.0,3.0))
 		2:
 			bulletFan(8,360,1)
-			weaponCooldown(1)
+			weaponCooldown(2)
 	assert (get_parent().get_parent().enemyType != 3 || get_parent().get_parent().enemyType == null)
 	
 func weaponCooldown(input:float):
