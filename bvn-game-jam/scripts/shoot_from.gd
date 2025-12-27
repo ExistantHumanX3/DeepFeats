@@ -1,6 +1,5 @@
 extends Node2D
 
-
 var can_shoot = true
 @export var strength: int = 1
 @onready var this: Marker2D = $"."
@@ -26,14 +25,43 @@ func shoot():
 		return
 	cooldown.start()
 	particles.restart()
-	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
-	shake_layer.start_shake(0.2)
 	can_shoot = false
 
 
 func _on_shoot_cooldown_timeout() -> void:
-	var b = Bullet.instantiate(bullet_type)
-	get_tree().root.add_child(b)
-	b.transform = center.transform
-	b.position = this.global_position
-	can_shoot = true
+	actuallyshoot()
+
+func actuallyshoot():
+	match get_parent().get_parent().enemyType: # In hindsight, I should've created a weapon Class but im too lazy and new to godot :D
+		0:
+			createBullet(1,randf_range(-5.0,5.0))
+			particles.restart()
+			weaponCooldown(randf_range(0.8,1.5))
+		1:
+			createBullet(1,0)
+			weaponCooldown(randf_range(1.0,3.0))
+		2:
+			bulletFan(8,360,1)
+			weaponCooldown(1)
+	assert (get_parent().get_parent().enemyType != 3 || get_parent().get_parent().enemyType == null)
+	
+func weaponCooldown(input:float):
+	get_node("ShootCooldown").wait_time = input
+	can_shoot = false
+	cooldown.start()
+	
+func createBullet(damage:float, rotOffset:float = 0, isWeak:bool = false):
+	# create bullet!!
+	var b := Bullet.instantiate()
+	get_tree().root.add_child(b) 
+	b.initialize(get_parent().get_parent().enemyType,damage,isWeak)
+	
+	# give bullet place to exist!!
+	self.rotation_degrees += rotOffset
+	b.transform = global_transform
+	self.rotation_degrees -= rotOffset
+
+func bulletFan(count:int, angle:float, damage:int = 1):
+	for i:int in count-1:
+		createBullet(damage, (-angle/2)+i*(angle/(count-1)))
+	createBullet(damage, (-angle/2)+count*(angle/count))

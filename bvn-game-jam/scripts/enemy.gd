@@ -9,6 +9,7 @@ enum AIState {
 @export var health: int = 1
 
 var state: AIState = AIState.IDLE
+@export var enemyType:int #sami i'm going to kill you for not having this earlier
 
 func get_state() -> AIState:
 	return state

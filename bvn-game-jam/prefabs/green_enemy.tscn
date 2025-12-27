@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnbsfg0n3iiug"]
+[gd_scene load_steps=12 format=3 uid="uid://b2t33054afwrx"]
 
 [ext_resource type="PackedScene" uid="uid://bx41pkkd7eqcp" path="res://prefabs/enemy.tscn" id="1_1rnkf"]
 [ext_resource type="Texture2D" uid="uid://bgmsmb5gini4k" path="res://assets/weapons/baseball stick.tres" id="2_lu186"]
@@ -64,10 +64,11 @@ animations = [{
 collision_layer = 2
 health = 2
 SPEED = 300.0
-CHACE_DIST = 400.0
 FLEE_DIST = 0.0
-CHACE_EXIT = 0.0
 FLEE_EXIT = 0.0
+
+[node name="ShootFrom" parent="Center" index="0"]
+visible = false
 
 [node name="Gun" parent="Center" index="1"]
 position = Vector2(30, 0)

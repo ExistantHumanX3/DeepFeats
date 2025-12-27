@@ -93,7 +93,7 @@ func shoot():
 	look_at(get_global_mouse_position()) 
 	match currentWeapon: # In hindsight, I should've created a weapon Class but im too lazy and new to godot :D
 		0:
-			createBullet(1,randf_range(-1,1))
+			createBullet(1,randf_range(-1.0,1.0))
 			shake_layer.start_shake(0.2)
 			particles.restart()
 			weaponCooldown(0.2)
@@ -104,11 +104,13 @@ func shoot():
 			weaponCooldown(0.3)
 		2:
 			bulletFan(10,90,1)
+			shake_layer.start_shake(0.5)
 			weaponCooldown(2.5)
 	# universal things
 	getCurrentWeaponSound().play()
 	get_parent().knockback(currentRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
 	rotation += deg_to_rad(pivotOffset)
+	
 func createBullet(damage:float, rotOffset:float = 0, isWeak:bool = false):
 	# create bullet!!
 	Bullet = preload("res://prefabs/player_bullet.tscn")
