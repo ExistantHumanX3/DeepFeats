@@ -61,7 +61,7 @@ func weaponSwapInput():
 		swapWeapon(2)
 
 func update_ammo(index: int, amount: int):
-	ammo[index] = amount
+	ammo[index] += amount
 
 func fireCheck():
 	if !canShoot:

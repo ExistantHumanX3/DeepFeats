@@ -26,7 +26,8 @@ func _physics_process(delta) -> void:
 	death_check()
 	move_and_slide()
 	
-
+func heal(amt: int):
+	health += amt
 # Gets input direction as a vector so it works with controllers
 func movementInput():
 	# Sets movement direction
@@ -106,3 +107,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 
 func get_candy() -> int:
 	return candy
+
+
+func update_ammo(index: int, num: int):
+	gun.update_ammo(index, num)

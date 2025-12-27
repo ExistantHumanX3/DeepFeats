@@ -51,12 +51,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4dohe"]
-radius = 5.0
-height = 16.0
+radius = 4.0
+height = 12.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r66lb"]
-radius = 9.0
-height = 20.0
+radius = 5.0
+height = 12.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 0
@@ -64,12 +64,14 @@ collision_mask = 0
 script = ExtResource("1_4dohe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(0, 5.9604645e-08)
+scale = Vector2(0.875, 0.875)
 sprite_frames = SubResource("SpriteFrames_1txc5")
 animation = &"idle"
 autoplay = "idle"
 
 [node name="WallCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_4dohe")
 
 [node name="GunPivot" parent="." instance=ExtResource("3_r66lb")]
@@ -82,6 +84,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_r66lb")
 
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
