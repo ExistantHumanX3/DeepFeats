@@ -76,8 +76,8 @@ func death_check():
 		print("died")
 		get_tree().reload_current_scene()
 
-func knockback(kb_vector: Vector2):
-	self.kb_vector = kb_vector * get_physics_process_delta_time()
+func knockback(input: Vector2):
+	self.kb_vector = input * get_physics_process_delta_time()
 
 func play_anim(name: String):
 	sprites.stop()
