@@ -23,7 +23,7 @@ func get_states() -> Dictionary:
 @export var FLEE_DIST: float = 75
 @export var CHACE_EXIT: float = 275
 @export var FLEE_EXIT: float = 100
-const CANDY_CORN = preload("uid://bdcgk1s00mfv7")
+const CANDY_CORN = preload("res://.godot/imported/candyCorn.png-762423adecd8501d4927a676262a1e7b.ctex")
 
 var dir2Player
 # TODO
