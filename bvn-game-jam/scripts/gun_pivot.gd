@@ -14,15 +14,16 @@ extends Node2D
 @onready var particles: GPUParticles2D = $Gun/BulletFrom/Particles
 
 # Player Inventory
-var ammo = [8, 16, 8] # 0: starbreaker; 1: toodles roll; 2: rerro focher
+var ammo = [10, 10, 10] # 0: starbreaker; 1: toodles roll; 2: rerro focher
 var currentWeapon = 0 # 0: gun; 1: baseball bat; 2: staff
 
 var canShoot = true;
 var gunRecoil = 100 # Why var? An upgrade will allow the bat to dash further 
-var batRecoil = -100
-var staffRecoil = 200
+var batRecoil = -200
+var staffRecoil = 250
 var recoilList: Array = [gunRecoil, batRecoil, staffRecoil]
-var currentRecoil = 100
+var currentRecoil: float = 100
+var pivotOffset: float = 0
 # textures
 const TEXTURE_GUN: Texture = preload("res://assets/weapons/gun2.png")
 const TEXTURE_BAT: Texture = preload("res://assets/weapons/baseball stick.png")
@@ -40,12 +41,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if game.useMouse:
-		look_at(get_global_mouse_position())
+		look_at(get_global_mouse_position()) 
+		rotation += deg_to_rad(pivotOffset)
 	else:
 		var input_dir = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 		var look_dir = input_dir + global_position
 		look_at(look_dir)
 	weaponSwapInput()
+	if(currentWeapon == 1 && pivotOffset < 70):
+		pivotOffset += 10
 	fireCheck()
 	if Input.is_action_just_pressed("debug_getAmmoBack"):
 		ammo = [10, 10, 10]
@@ -70,6 +74,16 @@ func fireCheck():
 		return
 	if(ammo[currentWeapon] < 1):
 		getCurrentWeaponBlankSound().play()
+		if currentWeapon != 1:
+			return
+		# shoot anyways, but weak
+		look_at(get_global_mouse_position())
+		createBullet(1,-5,true)
+		get_parent().knockback(currentRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
+		pivotOffset = -50
+		rotation += deg_to_rad(pivotOffset)
+		canShoot = false
+		gun_cooldown.start()
 		return
 	if ammo[currentWeapon] > 0:
 		ammo[currentWeapon] -= 1
@@ -79,25 +93,28 @@ func fireCheck():
 
 func shoot():
 	var shake_layer = get_tree().get_first_node_in_group("screen_shake")
+	look_at(get_global_mouse_position()) 
 	match currentWeapon: # In hindsight, I should've created a weapon Class but im too lazy and new to godot :D
 		0:
 			createBullet(1,randf_range(-1,1))
 			shake_layer.start_shake(0.2)
 			particles.restart()
 		1:
-			return # TODO: add stuff
+			createBullet(3,-15)
+			shake_layer.start_shake(0.1)
+			pivotOffset = -70
 		2:
 			bulletFan(10,90,1)
 	# universal things
 	getCurrentWeaponSound().play()
 	get_parent().knockback(currentRecoil*($Gun/BulletFrom.global_position - get_parent().global_position))
-
-func createBullet(damage:float, rotOffset:float = 0):
+	rotation += deg_to_rad(pivotOffset)
+func createBullet(damage:float, rotOffset:float = 0, isWeak:bool = false):
 	# create bullet!!
 	Bullet = preload("res://prefabs/player_bullet.tscn")
 	var b := Bullet.instantiate()
 	get_tree().root.add_child(b) 
-	b.initialize(currentWeapon,damage)
+	b.initialize(currentWeapon,damage,isWeak)
 	
 	# give bullet place to exist!!
 	self.rotation_degrees += rotOffset
@@ -115,6 +132,10 @@ func swapWeapon(index:int):
 	currentWeapon = index
 	currentRecoil = recoilList[index]
 	get_node("Gun").get_node("Sprite2D").offset = Vector2(offsetList[index][0], offsetList[index][1])
+	if index == 1:
+		pivotOffset = 70
+	else:
+		pivotOffset = 0
 
 func getCurrentWeaponSound() -> AudioStreamPlayer2D:
 	match currentWeapon:

@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://djgmi6cjxehwt"]
+[gd_scene load_steps=15 format=3 uid="uid://djgmi6cjxehwt"]
 
 [ext_resource type="Script" uid="uid://c5npy4e75b0n2" path="res://scripts/gun_pivot.gd" id="1_vg2ei"]
 [ext_resource type="Texture2D" uid="uid://byrs0t8aqr7dc" path="res://assets/weapons/gun2.png" id="2_4ps28"]
 [ext_resource type="AudioStream" uid="uid://cbom3qtb80vnm" path="res://assets/sounds/shoot.mp3" id="3_4ps28"]
+[ext_resource type="AudioStream" uid="uid://bv87j2n71p37f" path="res://assets/sounds/slash1.mp3" id="4_8ia4d"]
 [ext_resource type="AudioStream" uid="uid://dw5b1a51t1wxl" path="res://assets/sounds/spell (mp3cut.net).mp3" id="4_y2yuv"]
 [ext_resource type="AudioStream" uid="uid://c20eyd4n8ifb4" path="res://assets/sounds/dry fire (mp3cut.net).mp3" id="5_hyodh"]
 [ext_resource type="AudioStream" uid="uid://cqe3alh7dj4ln" path="res://assets/sounds/spell_fail.mp3" id="6_2t4hd"]
 [ext_resource type="AudioStream" uid="uid://bovelbtxoefb" path="res://assets/sounds/OH MY GOD!!! WAAAAAAH!!!!.mp3" id="7_2t4hd"]
+[ext_resource type="AudioStream" uid="uid://bxeaockyur47n" path="res://assets/sounds/slash2.mp3" id="7_j4gle"]
 
 [sub_resource type="Curve" id="Curve_4ps28"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0.21348321), -1.8202248, -1.8202248, 0, 0, Vector2(0.70454544, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.030898869, 0.0, 0, 0]
@@ -36,7 +38,6 @@ hue_variation_min = -2.2351742e-08
 hue_variation_max = -2.2351742e-08
 
 [node name="GunPivot" type="Node2D"]
-position = Vector2(0, -2)
 script = ExtResource("1_vg2ei")
 
 [node name="Gun" type="Node2D" parent="."]
@@ -69,6 +70,8 @@ max_distance = 50.0
 bus = &"Shoot SFX"
 
 [node name="MeleeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_8ia4d")
+volume_db = -3.0
 
 [node name="SpellSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_y2yuv")
@@ -80,6 +83,8 @@ stream = ExtResource("5_hyodh")
 volume_db = 12.0
 
 [node name="MeleeBlankSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_j4gle")
+volume_db = -6.0
 
 [node name="SpellBlankSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_2t4hd")
