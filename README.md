@@ -3,6 +3,7 @@ A game jam for the blue valley school district
 
 HOW TO INSTALL:
 Windows: Simply run the .exe file. When you open it, it will "crash". Wait for it to respond and the game should load
+
 Mac: Don't even bother. I don't even know how to install it. Just get a Windows computer please
 
 Controls:
