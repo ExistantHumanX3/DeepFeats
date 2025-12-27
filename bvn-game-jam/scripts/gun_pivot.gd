@@ -14,7 +14,7 @@ extends Node2D
 @onready var particles: GPUParticles2D = $Gun/BulletFrom/Particles
 
 # Player Inventory
-var ammo = [10, 10, 10] # 0: starbreaker; 1: toodles roll; 2: rerro focher
+var ammo = [15, 4, 3] # 0: starbreaker; 1: toodles roll; 2: rerro focher
 var currentWeapon = 0 # 0: gun; 1: baseball bat; 2: staff
 
 var canShoot = true;
@@ -188,3 +188,10 @@ func resetBat():
 		pivotOffset += resetSpeed
 	else:
 		pivotOffset = resetPosition
+
+func giveAmmo(amount:int, type:int):
+	ammo[type] += amount
+
+
+func _on_reload_timer_timeout() -> void:
+	pass # Replace with function body.

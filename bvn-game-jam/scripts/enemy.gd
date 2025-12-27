@@ -44,6 +44,7 @@ func _physics_process(delta: float) -> void:
 
 func death_check():
 	if health <= 0:
+		player.get_node("GunPivot").giveAmmo(0,1)
 		queue_free()
 
 
@@ -63,7 +64,7 @@ func state_stuff():
 			
 		AIState.CHASE:
 			
-			velocity = dir2p.normalized() * SPEED
+			velocity = dir2p.normalized() * SPEED/4 # last minute ass change
 			
 			if dis2p <= FLEE_DIST:
 				state = AIState.FLEE
@@ -71,7 +72,7 @@ func state_stuff():
 				state = AIState.IDLE
 		
 		AIState.FLEE:
-			velocity = -dir2p.normalized() * SPEED
+			velocity = -dir2p.normalized() * SPEED/4 # last minute ass change
 			
 			if dis2p > FLEE_EXIT:
 				state = AIState.CHASE
