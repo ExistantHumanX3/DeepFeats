@@ -9,8 +9,13 @@ Mac: Don't even bother. I'm the developer and I don't even know how to install i
 
 Controls:
 WASD/Arrow keys: move
+
+1,2,3: Switch between Weapons
+
 Shift: dash
+
 M1: Use weapon
+
 Ammunition automatically reloads every 15 seconds.
 You can take up to 3 hits before dying.
 
