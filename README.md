@@ -5,7 +5,9 @@ HOW TO INSTALL:
 Windows: Simply run the .exe file. When you open it, it will "crash". Wait for it to respond and the game should load
 https://github.com/ExistantHumanX3/bv_game_jam/blob/main/bvn-game-jam/BVNGameJam.exe
 
-Mac: Don't even bother. I'm the developer and I don't even know how to install it. Just get a Windows computer please https://github.com/ExistantHumanX3/bv_game_jam/blob/main/bvn-game-jam/BVNGameJam.zip
+Mac: Unzip the mac file, and move the app to your applications folder
+
+Web: Unzip the web file, and run RUN.bat. then go to your internet browser and the ip is localhost:8000
 
 Controls:
 WASD/Arrow keys: move
